@@ -11,7 +11,7 @@ function onInit() {
     console.log('i am connected to js');
 
 }
-renderGallery()
+// renderGallery()
 // renderEditor(gMeme)
 
 function onImageClicked(ev, imageId) {
@@ -62,12 +62,14 @@ function renderEditor(imageId) {
                 <button onClick="onChangeTextLineUp">to upper line</button>
                 <button onClick="onChangeTextLineDown">to bottom line</button>
                 <button onClick="onAddNewTextLine">add another line</button>
+                <button onClick="onClearCanvas">Clear</button>
                 <select class="font">
                 <option value="impact">IMPACT</option>
                 <option value="font2">font 2</option>
                 <option value="font3">font 3</option>
                 <option value="font4">font 4</option>
                 </select>
+
             </section>
 
             </section>
@@ -79,7 +81,8 @@ function renderEditor(imageId) {
 //draws an image on the canvas // still does'nt work when i send an image..weird!!!
 function drawImgFromLocal(imageId) {
     var img = new Image()
-    var source = `./img/meme-imgs-square/${imageId}.jpg`
+    // var source = `img/meme-imgs-square/${imageId}.jpg`
+    var source = `img/meme-imgs-square/1.jpg`
     console.log('source: ',source)  
     img.src = source
     img.onload = () => {

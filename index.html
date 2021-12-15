@@ -13,6 +13,33 @@
     <body onload="onInit()">
         <div class="logo"><img src="./img/logo/logo.png" alt=""></div>
         <div class="main-container">
+            <section class="edit-screen">
+                <nav>
+                <button>text size</button>
+                <button>text color</button>
+                <button>blah blah</button>
+                </nav>
+                <canvas id="canvas" height="350" width="350" style="border: 1px solid black">>
+                </canvas>
+                <section class="control-panel">
+                <input placeholder="Add cool text here" onchange="onChangeText(event)" type="text">
+                <button onClick="onFontBigger">text +</button>
+                <button onClick="onFontSmaller">text -</button>
+
+                <button onClick="onChangeTextColor">text color</button>
+                <button onClick="onChangeStrokeColor">stroke color</button>
+                <button onClick="onChangeTextLineUp">to upper line</button>
+                <button onClick="onChangeTextLineDown">to bottom line</button>
+                <button onClick="onAddNewTextLine">add another line</button>
+                <select class="font">
+                <option value="impact">IMPACT</option>
+                <option value="font2">font 2</option>
+                <option value="font3">font 3</option>
+                <option value="font4">font 4</option>
+                </select>
+            </section>
+
+            </section>
         </div>
         <script src="./js/meme.controller.js"></script>
         <script src="./js/main.js"></script>
