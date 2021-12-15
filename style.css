@@ -1,0 +1,98 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(153, 238, 153);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* helpers */
+.hidden{
+    visibility: hidden;
+    background-color: chartreuse;
+}
+
+/*  */
+.logo{
+    position: fixed;
+    top:20px;
+    
+    display: flex;
+    justify-content: flex-start;
+    
+}
+.logo img{
+    width: 150px;
+}
+
+.container {
+ border: solid 2px black;
+
+}
+
+.main-container{
+    width: 70%;
+    height: 70%;
+    background-color: lightsalmon;
+    border:  black solid 2px;
+}
+.edit-screen{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 8fr 1fr;
+}
+#canvas{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    justify-self: center;
+    align-self: center;
+}
+.control-panel{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    justify-self: center;
+    align-self: center;
+}
+nav{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    align-self: center;
+    justify-self: center;
+    gap: 0.5em;
+}
+
+.gallery-container{  
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    height: 90%;
+}
+h1{
+    text-align: start;
+}
+.images-container{   
+    display: flex;
+    flex-wrap: wrap;
+   width: 85%;
+    height: 80%;
+    justify-content: center;
+    overflow-y: scroll;
+    gap: 5px;
+    border: black solid 2px;
+    background-color: rgb(251, 198, 119);
+}
+.images-container img{
+    width: 200px;
+    height: 200px;      
+}
+.images-container img:hover {
+    cursor: grabbing;
+    opacity: 80%;
+}
