@@ -1,7 +1,24 @@
 'use strict'
+var gMeme=null
 var gCanvas;
 var gCtx;
 var gCurrAction = 'text'
+var gImages = [
+    { id: 1, url: './img/meme-imgs-square/1.jpg', keywords: ['funny', 'tramp'] },
+    { id: 2, url: './img/meme-imgs-square/2.jpg', keywords: ['funny', 'tramp'] },
+    { id: 3, url: './img/meme-imgs-square/3.jpg', keywords: ['funny', 'tramp'] },
+    { id: 4, url: './img/meme-imgs-square/4.jpg', keywords: ['funny', 'tramp'] },
+    { id: 5, url: './img/meme-imgs-square/5.jpg', keywords: ['funny', 'tramp'] },
+    { id: 6, url: './img/meme-imgs-square/6.jpg', keywords: ['funny', 'tramp'] },
+    { id: 7, url: './img/meme-imgs-square/7.jpg', keywords: ['funny', 'tramp'] },
+    { id: 8, url: './img/meme-imgs-square/8.jpg', keywords: ['romantic', 'dogs'] }
+]
+var gCurrSettings = {
+    fontSize: 20,
+    fontColor: 'white',
+    fontStrokeColor: 'black',
+    currLineIdx: 0
+}
 
 
 function onInit() {
@@ -15,11 +32,28 @@ function onInit() {
 // renderEditor(gMeme)
 
 
-
+function createMeme(imageId) {
+    var meme =
+    {
+        selectedImgId: imageId,
+        selectedLineIdx: 0,
+        lines: [
+            {
+                txt: '',
+                txtSize: 20,
+                font: 'IMPACT',
+                align: 'left',
+                color: 'white',
+                stroke: 'black'
+            }
+        ]
+    }
+    return meme
+}
 
 function onChangeText(ev) {
     let elText = document.querySelector('input').value
-    drawText(elText, 40, 40)
+    drawText(elText, 40, 40, gCurrSettings)
 }
 
 
@@ -35,14 +69,14 @@ function renderEditor(imageId) {
                 </canvas>
                 <section class="control-panel">
                 <input placeholder="Add cool text here" onchange="onChangeText(event)" type="text">
-                <button onClick="onFontBigger">text +</button>
-                <button onClick="onFontSmaller">text -</button>
+                <button onClick="onResizeFont(1)">text +</button>
+                <button onClick="onResizeFont(-1)">text -</button>
                 <button onClick="onClearCanvas()">Clear</button>
 
-                <button onClick="onChangeTextColor">text color</button>
-                <button onClick="onChangeStrokeColor">stroke color</button>
-                <button onClick="onChangeTextLineUp">to upper line</button>
-                <button onClick="onChangeTextLineDown">to bottom line</button>
+                <input type="color" onChange="onChangeFontColor(event)">textColor</input>
+                <input type="color" onChange="onChangeStrokeColor(event)">strokeColor</input>
+                <button onClick="onChangeTextLine(-1)">to upper line</button>
+                <button onClick="onChangeTextLine(1)">to bottom line</button>
                 <button onClick="onAddNewTextLine">add another line</button>
                 <button style="color:green"> <a href="#" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a></button>
                 <button  onClick="onInit()">RESTART</button>
@@ -63,44 +97,38 @@ function renderEditor(imageId) {
 }
 
 
+// var gCurrSettings = {
+//     fontSize: 20,
+//     fontColor: 'white',
+//     fontStrokeColor: 'black',
+//     currLineIdx: 0
+// }
 
-
-function drawText(txt, x, y) {
+function drawText(txt, x, y, gCurrSettings) {
     // gCtx.font = '48px serif';
     // gCtx.fillText(txt, x, y);
     gCtx.textBaseline = 'start';
     gCtx.textAlign = 'start';
-    gCtx.lineWidth = 2;
-    gCtx.strokeStyle = 'white';
+    gCtx.lineWidth = 5;
+
+    // gCtx.strokeStyle = 'black';
+    gCtx.strokeStyle = gCurrSettings.strokeColor
     gCtx.font = '50px monospace';
-    gCtx.fillStyle = 'red';
+    gCtx.fillStyle = gCurrSettings.fontColor
     gCtx.fillText(txt, x, y);
     gCtx.strokeText(txt, x, y);
 }
 
-function createMeme(imageId) {
-    var meme =
-    {
-        selectedImgId: imageId,
-        selectedLineIdx: 0,
-        lines: [
-            {
-                txt: 'I sometimes eat Falafel',
-                txtSize: 20,
-                font: 'IMPACT',
-                align: 'left',
-                color: 'white',
-                stroke: 'black'
-            }
-        ]
-    }
-}
-console.log('I sometimes eat Falafel'.length);
+
+
 // chooses the image and shows it in gallery - need to create a new meme
 function onImageClicked(ev, imageId) {
     renderEditor(imageId)
-    createMeme(imageId)
+    gMeme = createMeme(imageId)
+    console.log('gMeme: ',gMeme)
+    
 }
+
 //uploads images from gImages and add them with a forEach method
 function renderGallery() {
     let strHTML = `
@@ -114,6 +142,35 @@ function renderGallery() {
     strHTML += `</section></div>`
     document.querySelector('.main-container').innerHTML = strHTML
 }
+
+
+
+
+
+
+// gets the change from the DOM and updates the model (gMeme)
+function onResizeFont(diff){
+    gCurrSettings.fontSize += diff
+    console.log('gCurrSettings: ',gCurrSettings)
+  }
+
+  function onChangeFontColor(ev){
+      gCurrSettings.color = ev.path[0].value
+      console.log('gCurrSettings: ',gCurrSettings)
+  }
+
+  function onChangeStrokeColor(ev){
+      gCurrSettings.strokeColor = ev.path[0].value
+      console.log('gCurrSettings: ',gCurrSettings)
+  }
+
+  function onChangeTextLine(diff){
+    gCurrSettings.selectedLineIdx += diff
+    console.log('gCurrSettings: ',gCurrSettings)
+  }
+
+
+
 //draws an image on the canvas 
 function drawImgFromLocal(imageId) {
     var img = new Image()
@@ -134,3 +191,5 @@ function onDownloadImg(elLink) {
 function onClearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
+
+
