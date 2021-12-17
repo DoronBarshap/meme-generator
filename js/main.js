@@ -2,6 +2,7 @@
 
 function onInit() {
     resetCurrentSettings()
+    gMeme = null
     renderGallery()   
 }
 

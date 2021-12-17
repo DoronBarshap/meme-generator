@@ -13,35 +13,10 @@ var gCurrSettings = {
     txtAlign: 'left'
 }
 
-function resetCurrentSettings(){
-    gCurrSettings = {
-        imageId : null,
-        fontFamily: 'impact',
-        txtSize: 20,
-        txtColor: 'white',
-        txtStrokeColor: 'black',
-        currLineIdx: 0,
-        txtAlign: 'left'
-    }
-}
 
-//clears the canvas
-function onClearCanvas() {
-    gMeme.selectedLineIdx = 0
-    gMeme.lines =  [
-        {
-            txt: '',
-            txtSize: gCurrSettings.txtSize,
-            font: gCurrSettings.fontFamily,
-            align: gCurrSettings.txtAlign,
-            txtColor: gCurrSettings.txtColor,
-            stroke: gCurrSettings.txtStrokeColor
-        }
-    ]
-    renderMeme(gMeme)  
-}
 
-function addMemeNewLine(){
+
+function addMemeEmptyLine(){
     gMeme.lines.push( {
         txt: '',
         txtSize: gCurrSettings.txtSize,
@@ -75,6 +50,39 @@ function createMeme(gCurrSettings) {
 }
 
 
+
+// resets the current settings
+function resetCurrentSettings(){
+    gCurrSettings = {
+        imageId : null,
+        fontFamily: 'impact',
+        txtSize: 20,
+        txtColor: 'white',
+        txtStrokeColor: 'black',
+        currLineIdx: 0,
+        txtAlign: 'left'
+    }
+}
+//clears the canvas
+function onClearCanvas() {
+    resetCurrentSettings()
+    resetGMeme()
+    renderMemeImage(gMeme)  
+}
+// resets gMeme to have only first empty line
+function resetGMeme(){
+    gMeme.selectedLineIdx = 0
+    gMeme.lines =  [
+        {
+            txt: '',
+            txtSize: gCurrSettings.txtSize,
+            font: gCurrSettings.fontFamily,
+            align: gCurrSettings.txtAlign,
+            txtColor: gCurrSettings.txtColor,
+            stroke: gCurrSettings.txtStrokeColor
+        }
+    ]
+}
 
 
 // util functions
