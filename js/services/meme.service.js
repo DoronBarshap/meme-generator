@@ -6,11 +6,11 @@ var gCtx;
 var gCurrSettings = {
     imageId : null,
     fontFamily: 'impact',
-    txtSize: 20,
+    txtSize: 40,
     txtColor: 'white',
     txtStrokeColor: 'black',
     currLineIdx: 0,
-    txtAlign: 'left'
+    txtAlign: 'center'
 }
 
 
@@ -37,6 +37,7 @@ function createMeme(gCurrSettings) {
         selectedLineIdx: gCurrSettings.currLineIdx,
         lines: [
             {
+                line: gCurrSettings.currLineIdx,
                 txt: '',
                 txtSize: gCurrSettings.txtSize,
                 font: gCurrSettings.fontFamily,
@@ -56,11 +57,11 @@ function resetCurrentSettings(){
     gCurrSettings = {
         imageId : null,
         fontFamily: 'impact',
-        txtSize: 20,
+        txtSize: 40,
         txtColor: 'white',
         txtStrokeColor: 'black',
         currLineIdx: 0,
-        txtAlign: 'left'
+        txtAlign: 'center'
     }
 }
 //clears the canvas

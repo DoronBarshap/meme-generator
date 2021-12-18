@@ -7,14 +7,7 @@ function renderMemeImage(gMeme){
     drawImgFromLocal(gMeme.selectedImgId)
 }
 
-function renderMeme(gMeme) {
-    // gMeme.lines.forEach(line => {
-    //     drawText(line)
-    // })
-    for(var i=0; i<gMeme.lines.length-1 ; i++){
-        drawText(gMeme.lines[i])
-    }
-}
+
 
 function drawText(line) {
     console.log('line: ',line)
@@ -47,7 +40,7 @@ function drawText(line) {
         case 1:  // bottom line
             y = gCanvas.height - 40
             break
-        default: //center line
+        default: 
             y = (gCanvas.height / 2)
             break
     }
@@ -70,14 +63,17 @@ function onAddText(ev) {
     drawText(gMeme.lines[gMeme.selectedLineIdx])
     gCurrSettings.currLineIdx++
     gMeme.selectedLineIdx++  
+    elText = document.querySelector('.textInput').value='' // resets the input field
 }
 
 function onAddNewTextLine() {
-    if (gCurrSettings.currLineIdx === 0) return
-    gCurrSettings.currLineIdx++
+    // if (gCurrSettings.currLineIdx === 0) return
+    // gCurrSettings.currLineIdx++
+    if (gMeme.selectedLineIdx === 0) return
+    gMeme.selectedLineIdx++
 }
 
-function onDeleteLine(){
+function onDeleteLastLine(ev){
     console.log('deleteline');
     // if(gCurrSettings.currLineIdx===0) return
     if(gMeme.selectedLineIdx===0) return
@@ -87,7 +83,7 @@ function onDeleteLine(){
     console.log('gMeme: ',gMeme)  
     addMemeEmptyLine()
     renderMemeImage(gMeme)
-    renderMeme(gMeme)
+    // renderMeme(gMeme)
     gCurrSettings.currLineIdx--
 }
 
@@ -96,6 +92,7 @@ function onDeleteLine(){
 function onResizeFont(diff) {
     gCurrSettings.txtSize += diff
     gMeme.lines[gCurrSettings.currLineIdx].txtSize += diff
+    document.querySelector('.font-size').innerText = gMeme.lines[gCurrSettings.currLineIdx].txtSize
 }
 // recieves 'left', 'right', 'center' and updates the gCurrSettings variable
 function onChangeTextAlign(direction) {
@@ -115,11 +112,12 @@ function onChangeStrokeColor(ev) {
 
 function onChangeTextLine(diff) {
     gCurrSettings.currLineIdx += diff
+    // gMeme.lines[gCurrSettings.currLineIdx].stroke =
 }
 
-function onChangeFont(ev) {
-    gCurrSettings.fontFamily = ev.path[0].value
-    gMeme.lines[gCurrSettings.currLineIdx].font = ev.path[0].value
+function onChangeFont(font) {
+    gCurrSettings.fontFamily = font
+    gMeme.lines[gCurrSettings.currLineIdx].font = font
 }
 
 // downloads the meme
